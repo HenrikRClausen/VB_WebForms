@@ -21,6 +21,10 @@ namespace WingtipToys
 
             // Database initialisering
             Database.SetInitializer(new ProductDatabaseInitializer());
-        }
+
+            ProductContext con = new ProductContext();
+            con.Database.Initialize(true);
+            con.Database.CreateIfNotExists();
+            }
     }
 }

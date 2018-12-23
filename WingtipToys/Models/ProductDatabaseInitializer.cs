@@ -5,7 +5,10 @@ namespace WingtipToys.Models {
     public class ProductDatabaseInitializer : DropCreateDatabaseAlways<ProductContext> {
         protected override void Seed(ProductContext context) {
             GetCategories().ForEach(c => context.Categories.Add(c));
+            context.SaveChanges();
             GetProducts().ForEach(p => context.Products.Add(p));
+            context.SaveChanges();
+            base.Seed(context);
             }
 
         private static List<Category> GetCategories() {
