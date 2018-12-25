@@ -6,27 +6,21 @@ using Microsoft.AspNet.Identity.Owin;
 using Owin;
 using WingtipToys.Models;
 
-namespace WingtipToys.Account
-{
-    public partial class Login : Page
-    {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+namespace WingtipToys.Account {
+    public partial class Login : Page {
+        protected void Page_Load(object sender, EventArgs e) {
             RegisterHyperLink.NavigateUrl = "Register";
             // Enable this once you have account confirmation enabled for password reset functionality
             //ForgotPasswordHyperLink.NavigateUrl = "Forgot";
             OpenAuthLogin.ReturnUrl = Request.QueryString["ReturnUrl"];
             var returnUrl = HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
-            if (!String.IsNullOrEmpty(returnUrl))
-            {
+            if (!String.IsNullOrEmpty(returnUrl)) {
                 RegisterHyperLink.NavigateUrl += "?ReturnUrl=" + returnUrl;
+                }
             }
-        }
 
-        protected void LogIn(object sender, EventArgs e)
-        {
-            if (IsValid)
-            {
+        protected void LogIn(object sender, EventArgs e) {
+            if (IsValid) {
                 // Validate the user password
                 var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 var signinManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
@@ -35,16 +29,19 @@ namespace WingtipToys.Account
                 // To enable password failures to trigger lockout, change to shouldLockout: true
                 var result = signinManager.PasswordSignIn(Email.Text, Password.Text, RememberMe.Checked, shouldLockout: false);
 
-                switch (result)
-                {
+                switch (result) {
                     case SignInStatus.Success:
+                        WingtipToys.Logic.ShoppingCartActions usersShoppingCart = 
+                            new WingtipToys.Logic.ShoppingCartActions();
+                        String cartId = usersShoppingCart.GetCartId();
+                        usersShoppingCart.MigrateCart(cartId, System.Web.HttpContext.Current.User.Identity.Name);
                         IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
                         break;
                     case SignInStatus.LockedOut:
                         Response.Redirect("/Account/Lockout");
                         break;
                     case SignInStatus.RequiresVerification:
-                        Response.Redirect(String.Format("/Account/TwoFactorAuthenticationSignIn?ReturnUrl={0}&RememberMe={1}", 
+                        Response.Redirect(String.Format("/Account/TwoFactorAuthenticationSignIn?ReturnUrl={0}&RememberMe={1}",
                                                         Request.QueryString["ReturnUrl"],
                                                         RememberMe.Checked),
                                           true);
@@ -54,8 +51,8 @@ namespace WingtipToys.Account
                         FailureText.Text = "Invalid login attempt";
                         ErrorMessage.Visible = true;
                         break;
+                    }
                 }
             }
         }
     }
-}

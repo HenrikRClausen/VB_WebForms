@@ -4,7 +4,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div id="ShoppingCartTitle" runat="server" class="ContentHead">
-        <h1>Shopping Cart</h1>
+        <h1>Indkøbskurv</h1>
     </div>
     <asp:GridView ID="CartList" runat="server" AutoGenerateColumns="False" ShowFooter="True"
         GridLines="Vertical" CellPadding="4" ItemType="WingtipToys.Models.CartItem"
@@ -18,12 +18,12 @@
                     <asp:TextBox ID="PurchaseQuantity" Width="40" runat="server" Text="<%#: Item.Quantity %>"></asp:TextBox>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Item Total">
+            <asp:TemplateField HeaderText="Samlet pris">
                 <ItemTemplate>
                     <%#: String.Format("{0:c}", ((Convert.ToDouble(Item.Quantity)) * Convert.ToDouble(Item.Product.UnitPrice)))%>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Remove Item">
+            <asp:TemplateField HeaderText="Fjern vare">
                 <ItemTemplate>
                     <asp:CheckBox ID="Remove" runat="server"></asp:CheckBox>
                 </ItemTemplate>
@@ -33,7 +33,7 @@
     <div>
         <p></p>
         <strong>
-            <asp:Label ID="LabelTotalText" runat="server" Text="Order Total: "></asp:Label>
+            <asp:Label ID="LabelTotalText" runat="server" Text="Totalpris: "></asp:Label>
             <asp:Label ID="lblTotal" runat="server" EnableViewState="false"></asp:Label>
         </strong>
     </div>
@@ -44,7 +44,10 @@
                 <asp:Button ID="UpdateBtn" runat="server" Text="Update" OnClick="UpdateBtn_Click" />
             </td>
             <td>
-                <!--Checkout Placeholder -->
+                <asp:ImageButton ID="CheckoutImageBtn" runat="server"
+                    ImageUrl="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"
+                    Width="145" AlternateText="Check out with PayPal" OnClick="CheckoutBtn_Click"
+                    BackColor="Transparent" BorderWidth="0" />
             </td>
         </tr>
     </table>
