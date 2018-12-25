@@ -30,13 +30,23 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <div>  
-        <p></p>  
-        <strong>  
-            <asp:Label ID="LabelTotalText" runat="server" Text="Order Total: "></asp:Label>  
-            <asp:Label ID="lblTotal" runat="server" EnableViewState="false"></asp:Label>  
-        </strong> 
-    </div>  
-    <br/> 
-    </asp:Content>
+    <div>
+        <p></p>
+        <strong>
+            <asp:Label ID="LabelTotalText" runat="server" Text="Order Total: "></asp:Label>
+            <asp:Label ID="lblTotal" runat="server" EnableViewState="false"></asp:Label>
+        </strong>
+    </div>
+    <br />
+    <table>
+        <tr>
+            <td>
+                <asp:Button ID="UpdateBtn" runat="server" Text="Update" OnClick="UpdateBtn_Click" />
+            </td>
+            <td>
+                <!--Checkout Placeholder -->
+            </td>
+        </tr>
+    </table>
+</asp:Content>
 
