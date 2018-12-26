@@ -22,8 +22,8 @@ public class NVPAPICaller {
     private string host = "www.paypal.com";
 
     // Sandbox strings. 
-    private string pEndPointURL_SB = "https://api-3t.sandbox.paypal.com/nvp";
-    private string host_SB = "www.sandbox.paypal.com";
+    private readonly string pEndPointURL_SB = "https://api-3t.sandbox.paypal.com/nvp";
+    private readonly string host_SB = "www.sandbox.paypal.com";
     private const string SIGNATURE = "SIGNATURE";
     private const string PWD = "PWD";
     private const string ACCT = "ACCT";
@@ -32,8 +32,8 @@ public class NVPAPICaller {
     private string APIPassword = "TQ4K54QFZKES4YGD";
     private string APISignature = "AYE-TxSdSwBUHKWfSMP0XqzIUNDoALnt.bd5RWgNS-G7mMredtVznJyC";
 
-    private string Subject = "";
-    private string BNCode = "PP-ECWizard";
+    private readonly string Subject = "";
+    private readonly string BNCode = "PP-ECWizard";
     // HttpWebRequest Timeout specified in milliseconds 
     private const int Timeout = 15000;
     private static readonly string[] SECURED_NVPS = new string[] { ACCT, CVV2, SIGNATURE, PWD };
